@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="text" />
+    <input type="email" id="email" />
+    <button class="send">count</button>
+    <button>like</button>
+    <h1>0</h1>
+    <script type="text/javascript">
+      let email = document.querySelector("#email");
+
+      let text = document.querySelector("#text");
+      let click = document.querySelector(".send");
+      let h1 = document.querySelector("h1");
+      let count = 0;
+
+      click.addEventListener("click", function () {
+        fetch("http://localhost:3004/like", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            count: count++
+          })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            h1.innerHTML = data.count;
+          });
+      });
+      fetch("http://localhost:3004/like", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data.forEach((item) => {
+            let h1s = document.createElement("h1");
+            document.body.append(h1s);
+            h1s.innerHTML = item.id;
+          });
+        });
+    </script>
+  </body>
+</html>

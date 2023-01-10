@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>Your info</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="block">
+          <nav>
+            <div class="searchBox">
+              <div class="search-item">
+                <input
+                  type="search"
+                  placeholder="search"
+                  placeholder="search Here"
+                />
+                <button class="bx bx-search"></button>
+              </div>
+              <div class="register">
+                <button class="register-btn">Register</button>
+                <div class="info">
+                  <div class="user-info">
+                    <img src="" alt="" />
+                    <div class="information">
+                      <span class="email_span">email: </span>
+                      <span class="username_span">username: </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="register-box">
+                  <input
+                    type="text"
+                    placeholder="Enter your FullName"
+                    id="full_name_input"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Enter Your Email"
+                    id="email_input"
+                  />
+                  <input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    id="password_input"
+                  />
+                  <button class="register-signUp" id="sign_up_btn">
+                    Register
+                  </button>
+                  <span>Or Google login</span>
+                  <div class="social-media">
+                    <button class="register-google register-social">
+                      <i class="bx bxl-google"></i>
+                    </button>
+                    <button class="register-facebook register-social">
+                      <i class="bx bxl-facebook register-social"></i>
+                    </button>
+                    <button class="register-github register-social">
+                      <i class="bx bxl-github"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="fixed-window"></div>
+            </div>
+            <ul>
+              <li><a href="./home.html">Home</a></li>
+              <li><a href="">About</a></li>
+              <li><a href="./getting-started/index.html">Courses</a></li>
+              <li><a href="">Code</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <aside>
+      <div class="container">
+        <div class="block">
+          <div class="dashboard-title">
+            <a href="../index.html">
+              <h1>Code Learn</h1>
+            </a>
+          </div>
+          <div class="web-pages">
+            <ul>
+              <li><a href="./home.html">Home</a></li>
+              <li><a href="">About us</a></li>
+              <li><a href="/html/your-info.html">your information</a></li>
+              <li><a href="">Blog</a></li>
+            </ul>
+          </div>
+          <div class="social-media">
+            <div class="icons">
+              <div class="icon">
+                <a href=""><i class="bx bxl-instagram"></i></a>
+              </div>
+              <div class="icon">
+                <a href=""><i class="bx bxl-facebook"></i></a>
+              </div>
+              <div class="icon">
+                <a href=""> <i class="bx bxl-telegram"></i></a>
+              </div>
+              <div class="icon">
+                <a href=""><i class="bx bxl-youtube"></i></a>
+              </div>
+              <div class="icon">
+                <a href=""><i class="bx bxl-google"></i></a>
+              </div>
+              <div class="icon">
+                <a href=""><i class="bx bxl-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <div class="container">
+        <div class="block">
+          <div class="information_your">
+            <span style="color: white">Your img</span>
+            <hr style="width: 60%" />
+            <div class="img">
+              <img src="" alt="" class="info_img" />
+            </div>
+            <hr style="width: 60%; margin-top: 10px" />
+            <span style="color: white">your Name</span>
+            <h1 class="name"></h1>
+            <hr style="width: 60%; margin-top: 10px" />
+            <span style="color: white">Your Email</span>
+            <h1 class="email"></h1>
+            <hr style="width: 60%; margin-top: 10px" />
+          </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="../index.js" type="module"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithRedirect,
+        signInWithPopup,
+        signOut,
+        signInAnonymously,
+        onAuthStateChanged,
+        linkWithCredential,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword
+      } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyCVL36yg-PvtQ_tLSlGA174Ey7i8CbqJPg",
+        authDomain: "development-b4986.firebaseapp.com",
+        databaseURL: "https://development-b4986-default-rtdb.firebaseio.com",
+        projectId: "development-b4986",
+        storageBucket: "development-b4986.appspot.com",
+        messagingSenderId: "635982697705",
+        appId: "1:635982697705:web:50ac8db0fa690531e0cc78",
+        measurementId: "G-1GDNV6NV6Q"
+      };
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      function GetUserInfo() {
+        const user = auth.currentUser;
+        onAuthStateChanged(auth, (user) => {
+          let img_user = document.querySelector("img");
+          let info_img = document.querySelector(".info_img");
+          if (user !== null) {
+            // The user object has basic properties such as display name, email, etc.
+            const displayName = user.displayName;
+            const email = user.email;
+            const photoURL = user.photoURL;
+            const emailVerified = user.emailVerified;
+
+            // The user's ID, unique to the Firebase project. Do NOT use
+            // this value to authenticate with your backend server, if
+            // you have one. Use User.getToken() instead.
+            const uid = user.uid;
+          }
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            let span_email = document.querySelector(".email");
+            let username_span = document.querySelector(".name");
+            let register = document.querySelector(".register-btn");
+            const uid = user.uid;
+            span_email.innerHTML = user.email;
+            username_span.innerHTML = user.email;
+            // ...
+            if (user !== null) {
+              user.providerData.forEach((profile) => {
+                let a_href = document.createElement("a");
+                let time = document.querySelector(".time");
+
+                // img_class.append(a_href);
+                // a_href.append(img_user);
+                a_href.setAttribute("href", "./user-page.html");
+                img_user.setAttribute("src", `${user.photoURL}`);
+                info_img.setAttribute("src", `${user.photoURL}`);
+                username_span.innerHTML = user.displayName;
+
+                if (user.photoURL) {
+                  span_email.style.color = "white";
+                  username_span.style.color = "white";
+                  span_email.style.display = "block";
+                  register.style.display = "none";
+
+                  let information = document.querySelector(".information");
+                  let lightMode = document.createElement("button");
+                  lightMode.innerHTML = "lightmode";
+                  img_user.addEventListener("click", function () {
+                    information.style.display = "block";
+                  });
+                } else {
+                  span_email.style.color = "white";
+                  username_span.style.color = "white";
+                  span_email.style.display = "block";
+                  register.style.display = "none";
+                }
+              });
+            }
+            span_email.innerHTML = user.email;
+          } else {
+            // User is signed out
+            // ...
+          }
+        });
+      }
+      GetUserInfo();
+    </script>
+  </body>
+</html>
